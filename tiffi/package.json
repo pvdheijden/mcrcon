@@ -1,0 +1,9 @@
+{
+  "name": "tiffi-mcrcon",
+  "version": "0.0.5",
+  "description": "",
+  "scripts": {
+    "install": "node-gyp rebuild && cp ./build/Release/mcrcon ../"
+  },
+  "gypfile": true
+}

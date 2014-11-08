@@ -7,6 +7,7 @@
         "mcrcon.c"
       ],
       "cflags": [
+        "-g",
         "-std=gnu1x",
         "Wall", "Wextra"
       ],

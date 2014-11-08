@@ -2,9 +2,10 @@
   "name": "mcrcon",
   "version": "0.0.1",
   "description": "remote connection client for minecraft servers",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "node-gyp rebuild && (cp ./build/Release/mcrcon .)"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -12,7 +13,6 @@
   },
   "author": "Pim <pvdheijden@yahoo.com>",
   "license": "MIT",
-  "gypfile": true,
   "bugs": {
     "url": "https://github.com/pvdheijden/mcrcon/issues"
   },

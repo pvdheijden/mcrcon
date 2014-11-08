@@ -7,9 +7,9 @@ Forked from [Tiffi's mcrcon repository](https://github.com/pvdheijden/mcrcon)
 See LICENSE for original Tiffi license conditions.
 
 ## Setup
-Client is build with npm which kicks-off [node-gyp](https://github.com/TooTallNate/node-gyp) to generate the makefile and build the client.
+Original software is build with npm which kicks-off [node-gyp](https://github.com/TooTallNate/node-gyp) to generate the makefile and build the client.
 ```
-npm install
+cd tiffi && npm install
 ```
 
 
