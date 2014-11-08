@@ -1,10 +1,14 @@
-####Compiling:
+# Remote connection client for minecraft servers
 
-```gcc -std=gnu99 -pedantic -Wall -Wextra -O2 -s -o mcrcon mcrcon.c```
-
-On windows, remember to link with winsockets.
-Add ```-lws2_32``` to compiler command line on Mingw GCC.
-
----
-
+Forked from [Tiffi's mcrcon repository](https://github.com/pvdheijden/mcrcon)
 More info [here](http://forums.bukkit.org/threads/admin-rcon-mcrcon-remote-connection-client-for-minecraft-servers.70910/).
+
+## Setup
+Client is build with npm which kicks-off [node-gyp](https://github.com/TooTallNate/node-gyp) to generate the makefile and build the client.
+
+Build:
+```
+npm install
+```
+
+
