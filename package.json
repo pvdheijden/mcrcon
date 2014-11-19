@@ -21,6 +21,15 @@
     "mocha": "*",
     "should": "*",
     "istanbul": "*",
-    "jshint": "*"
+    "jshint": "*",
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-nodeunit": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-mocha-istanbul": "*",
+    "grunt-npm-install": "*"
+  },
+  "dependencies": {
+    "debug": "^2.1.0"
   }
 }

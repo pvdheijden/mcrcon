@@ -1,5 +1,6 @@
 var should = require('should');
 
+var password = process.env.PASSWORD;
 var mcrcon = require('../index')({
     'port': process.env.PORT || 25575,
     'host': process.env.HOST || 'minecraft-server.zifzaf.net'
@@ -35,23 +36,25 @@ describe('mcrcon functions', function() {
 
 describe('connection', function() {
 
-    /*jshint -W030 */
     it('should fail with incorrect password', function(done) {
-        mcrcon.connect('XXXXX', function(err) {
+        mcrcon.connect('WRONG_PASSWD', function(err) {
+            /*jshint -W030 */
             (err === undefined).should.be.false;
+            /*jshint -W030 */
 
             done();
         });
     });
 
     it('should succeed with correct password', function(done) {
-        mcrcon.connect('XXXXX', function(err) {
+        mcrcon.connect(password, function(err) {
+            /*jshint -W030 */
             (err === undefined).should.be.true;
+            /*jshint -W030 */
 
             done();
         });
     });
-    /*jshint -W030 */
 
     it('should close', function(done) {
         mcrcon.close();
@@ -61,21 +64,46 @@ describe('connection', function() {
 
 });
 
+describe('command while not connected', function() {
+
+    it('existing command should fail', function(done) {
+        mcrcon.command({ 'id': 1, 'message': 'list' }, function(err, response) {
+            /*jshint -W030 */
+            (err !== null).should.be.true;
+            (response === undefined).should.be.true;
+            /*jshint -W030 */
+
+            done();
+        });
+    });
+
+    it('invalid command should fail', function(done) {
+        mcrcon.command({ 'id': 1, 'message': 'invalid' }, function(err, response) {
+            /*jshint -W030 */
+            (err !== null).should.be.true;
+            (response === undefined).should.be.true;
+            /*jshint -W030 */
+
+            done();
+        });
+    });
+
+});
+
 describe('invalid command', function() {
 
     before(function(done) {
-        mcrcon.connect('XXXXXX', function() {
+        mcrcon.connect(password, function() {
             done();
         });
     });
 
     it('should fail for invalid command', function(done) {
-        mcrcon.command({ 'id': 1, 'message': 'invalid' }, function(response) {
-            response.should.have.properties({
-                'id': 1,
-                'type': 0,
-                'message': 'Unknown command. Try /help for a list of commands'
-            });
+        mcrcon.command({ 'id': 1, 'message': 'invalid' }, function(err, response) {
+            /*jshint -W030 */
+            (err !== null).should.be.true;
+            (response === undefined).should.be.true;
+            /*jshint -W030 */
 
             done();
         });
@@ -92,13 +120,16 @@ describe('invalid command', function() {
 describe('all commands', function() {
 
     before(function(done) {
-        mcrcon.connect('XXXXX', function() {
+        mcrcon.connect(password, function() {
             done();
         });
     });
 
     it('support list command', function(done) {
-        mcrcon.command({ 'id': 1, 'message': 'list' }, function(response) {
+        mcrcon.command({ 'id': 1, 'message': 'list' }, function(err, response) {
+            /*jshint -W030 */
+            (err === null).should.be.true;
+            /*jshint -W030 */
             response.should.have.properties({
                 'id': 1,
                 'type': 0
@@ -110,7 +141,10 @@ describe('all commands', function() {
     });
 
     it('support whitelist list command', function(done) {
-        mcrcon.command({ 'id': 2, 'message': 'whitelist list' }, function(response) {
+        mcrcon.command({ 'id': 2, 'message': 'whitelist list' }, function(err, response) {
+            /*jshint -W030 */
+            (err === null).should.be.true;
+            /*jshint -W030 */
             response.should.have.properties({
                 'id': 2,
                 'type': 0
