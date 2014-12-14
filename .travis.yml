@@ -5,5 +5,4 @@ node_js:
 before_install:
 - openssl aes-256-cbc -K $encrypted_940d51811bdb_key -iv $encrypted_940d51811bdb_iv
   -in env-dev.ini.enc -out env-dev.ini -d
-- openssl aes-256-cbc -k "$dev_password" -in env-dev.ini.enc -out env-dev.ini -d
 - npm install -g grunt-cli
