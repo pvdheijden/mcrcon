@@ -1,4 +1,5 @@
 # node-mcrcon #
+[![Travis](https://travis-ci.org/pvdheijden/node-mcrcon.svg?branch=master)](https://travis-ci.org/)
 
 Node.JS Minecraft remote connection client component.
 
