@@ -4,6 +4,12 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
+        'env': {
+            'dev': {
+                'src': 'env-dev.ini'
+            }
+        },
+
         'jshint': {
             'lint': {
                 'options': {
@@ -30,14 +36,16 @@ module.exports = function(grunt) {
 
     });
 
+    grunt.loadNpmTasks('grunt-env');
+
     grunt.loadNpmTasks('grunt-npm-install');
     grunt.registerTask('install', ['npm-install']);
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-mocha-istanbul');
-    grunt.registerTask('test', ['jshint', 'mocha_istanbul']);
+    grunt.registerTask('test', ['env:dev', 'jshint', 'mocha_istanbul']);
 
     // Default task(s).
-    grunt.registerTask('all', ['npm-install', 'jshint', 'mocha_istanbul']);
+    grunt.registerTask('all', ['npm-install', 'env:dev', 'jshint', 'mocha_istanbul']);
 
 };
