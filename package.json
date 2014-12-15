@@ -16,23 +16,24 @@
     "url": "https://github.com/pvdheijden/mcrcon/issues"
   },
   "homepage": "https://github.com/pvdheijden/mcrcon",
-  "engines" : {
-    "node" : ">=0.10.3",
+  "engines": {
+    "node": ">=0.10.3",
     "npm": ">=2.1.4"
   },
   "devDependencies": {
-    "mocha": "*",
-    "should": "*",
-    "istanbul": "*",
-    "jshint": "*",
-    "jshint-stylish": "*",
     "grunt": "*",
-    "grunt-env": "*",
     "grunt-contrib-jshint": "*",
     "grunt-contrib-nodeunit": "*",
     "grunt-contrib-uglify": "*",
+    "grunt-coveralls": "^1.0.0",
+    "grunt-env": "*",
     "grunt-mocha-istanbul": "*",
-    "grunt-npm-install": "*"
+    "grunt-npm-install": "*",
+    "istanbul": "*",
+    "jshint": "*",
+    "jshint-stylish": "*",
+    "mocha": "*",
+    "should": "*"
   },
   "dependencies": {
     "debug": "^2.1.0"
