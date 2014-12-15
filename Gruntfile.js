@@ -34,16 +34,17 @@ module.exports = function(grunt) {
             }
         },
 
-        coveralls: {
-            options: {
+        'coveralls': {
+            'options': {
                 // LCOV coverage file relevant to every target
-                src: 'coverage/lcov.info',
+                'src': 'coverage/lcov.info',
 
                 // When true, grunt-coveralls will only print a warning rather than
                 // an error, to prevent CI builds from failing unnecessarily (e.g. if
                 // coveralls.io is down). Optional, defaults to false.
-                force: false
-            }
+                'force': true
+            },
+            'node-mcrcon': 'coverage/lcov.info'
         }
 
     });
@@ -55,11 +56,6 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-mocha-istanbul');
-    grunt.registerTask('test', ['env:dev', 'jshint', 'mocha_istanbul']);
-
     grunt.loadNpmTasks('grunt-coveralls');
-
-    // Default task(s).
-    grunt.registerTask('all', ['npm-install', 'env:dev', 'jshint', 'mocha_istanbul']);
-
+    grunt.registerTask('test', ['env:dev', 'jshint', 'mocha_istanbul', 'coveralls']);
 };
