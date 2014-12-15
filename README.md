@@ -1,5 +1,6 @@
 # node-mcrcon #
 [![Travis](https://travis-ci.org/pvdheijden/node-mcrcon.svg?branch=master)](https://travis-ci.org/)
+[![Coverage Status](https://img.shields.io/coveralls/pvdheijden/node-mcrcon.svg)](https://coveralls.io/r/pvdheijden/node-mcrcon?branch=master)
 
 Node.JS Minecraft remote connection client component.
 
