@@ -1,6 +1,6 @@
 {
   "name": "mcrcon",
-  "version": "0.1",
+  "version": "0.0.1",
   "description": "remote connection client for minecraft servers",
   "main": "index.js",
   "bin": {
