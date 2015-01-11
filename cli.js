@@ -8,9 +8,9 @@ var argv = require('minimist')(process.argv.slice(2));
 var host, port;
 if (argv._[0]) {
     host = argv._[0].split(':')[0];
-    port = argv._[0].split(':')[1] || process.env.PORT || 25575;
+    port = argv._[0].split(':')[1];
 }
-if (!host) {  host = process.env.HOST; }
+if (!host) {  host = process.env.HOST || '127.0.0.1'; }
 if (!port) {  port = process.env.PORT || 25575; }
 
 var password = argv.p || argv.password;
