@@ -18,7 +18,7 @@ var password = argv.p || argv.password;
 debug('connecting to minecraft server at %s:%d with password %s', host, port, password);
 
 if (!port || !host || !password) {
-    console.log('usage: mcrcon -p<password>  <host:port>');
+    console.log('usage: mcrcon -p <password>  [host:port]');
     process.exit(0);
 }
 

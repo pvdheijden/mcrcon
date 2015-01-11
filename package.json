@@ -1,21 +1,24 @@
 {
   "name": "mcrcon",
-  "version": "0.0.1",
+  "version": "0.1",
   "description": "remote connection client for minecraft servers",
   "main": "index.js",
+  "bin": {
+    "mcrcon": "./cli.js"
+  },
   "scripts": {
     "test": "grunt test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pvdheijden/mcrcon.git"
+    "url": "git://github.com/pvdheijden/node-mcrcon.git"
   },
   "author": "Pim <pvdheijden@yahoo.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pvdheijden/mcrcon/issues"
+    "url": "https://github.com/pvdheijden/node-mcrcon/issues"
   },
-  "homepage": "https://github.com/pvdheijden/mcrcon",
+  "homepage": "https://github.com/pvdheijden/node-mcrcon",
   "engines": {
     "node": ">=0.10.3",
     "npm": ">=2.1.4"
@@ -25,7 +28,7 @@
     "grunt-contrib-jshint": "*",
     "grunt-contrib-nodeunit": "*",
     "grunt-contrib-uglify": "*",
-    "grunt-coveralls": "^1.0.0",
+    "grunt-coveralls": "*",
     "grunt-env": "*",
     "grunt-mocha-istanbul": "*",
     "grunt-npm-install": "*",
@@ -38,8 +41,5 @@
   "dependencies": {
     "debug": "^2.1.0",
     "minimist": "^1.1.0"
-  },
-  "bin" : {
-    "mcrcon" : "./cli.js"
   }
 }
