@@ -16,11 +16,12 @@ if (!port) {  port = process.env.PORT || 25575; }
 var password = argv.p || argv.password;
 
 debug('connecting to minecraft server at %s:%d with password %s', host, port, password);
-
 if (!port || !host || !password) {
-    console.log('usage: mcrcon -p <password>  [host:port]');
+    console.log('usage: mcrcon -p <password>  [-c <command>] [host:port]');
     process.exit(0);
 }
+
+var message = argv.c || argv.command;
 
 var mcrcon = require('./lib/mcrcon')({ 'port': port, 'host': host });
 mcrcon.connect(password, function(err) {
@@ -104,63 +105,77 @@ mcrcon.connect(password, function(err) {
         ];
     }
 
-    var id = 1;
-
-    var readline = require('readline').createInterface(process.stdin, process.stdout, completer);
-    readline.setPrompt('MCrcon> ');
-    readline.prompt();
-
-    readline
-        .on('line', function(message) {
-            readline.pause();
-
-            message = message.trim();
-            switch(message) {
-                case '.help':
-                    console.log('<minecraft command> [args]');
-                    console.log('.commands (or TAB) for list of commands');
-                    console.log('.exit to exit the application.');
-                    readline.prompt();
-                    break;
-
-                case '.commands':
-                    for (var command in mc_commands) {
-                        if (mc_commands.hasOwnProperty(command)) {
-                            console.log(command + ': ' + mc_commands[command]);
-                        }
-                    }
-                    readline.prompt();
-                    break;
-
-                case '.exit':
-                    readline.question('Are you sure you want to exit? ', function(answer) {
-                        if (answer.match(/^y(es)?$/i)) {
-                            readline.close();
-                        }
-                    });
-                    break;
-
-                default:
-                    if (message[0] === '.') {
-                        console.log('unknown command');
-                        readline.prompt();
-                    } else {
-                        mcrcon.command({ 'id': id, 'message': message.trim() }, function(err, response) {
-                            if (err) {
-                                console.error('error sending command \'%s\' [%s]', message, err.message);
-                            } else {
-                                console.log(response.message);
-                            }
-                            id++;
-
-                            readline.prompt();
-                        });
-                    }
-                    break;
+    if (message) {
+        mcrcon.command({ 'id': 1, 'message': message.trim() }, function(err, response) {
+            if (err) {
+                console.error('error sending command \'%s\' [%s]', message, err.message);
+            } else {
+                console.log(response.message);
             }
-        })
-        .on('close', function() {
+
             mcrcon.close();
             process.exit(0);
         });
+    } else {
+        var id = 1;
+
+        var readline = require('readline').createInterface(process.stdin, process.stdout, completer);
+        readline.setPrompt('MCrcon> ');
+        readline.prompt();
+
+        readline
+            .on('line', function(message) {
+                readline.pause();
+
+                message = message.trim();
+                switch(message) {
+                    case '.help':
+                        console.log('<minecraft command> [args]');
+                        console.log('.commands (or TAB) for list of commands');
+                        console.log('.exit to exit the application.');
+                        readline.prompt();
+                        break;
+
+                    case '.commands':
+                        for (var command in mc_commands) {
+                            if (mc_commands.hasOwnProperty(command)) {
+                                console.log(command + ': ' + mc_commands[command]);
+                            }
+                        }
+                        readline.prompt();
+                        break;
+
+                    case '.exit':
+                        readline.question('Are you sure you want to exit? ', function(answer) {
+                            if (answer.match(/^y(es)?$/i)) {
+                                readline.close();
+                            }
+                        });
+                        break;
+
+                    default:
+                        if (message[0] === '.') {
+                            console.log('unknown command');
+                            readline.prompt();
+                        } else {
+                            mcrcon.command({ 'id': id, 'message': message.trim() }, function(err, response) {
+                                if (err) {
+                                    console.error('error sending command \'%s\' [%s]', message, err.message);
+                                } else {
+                                    console.log(response.message);
+                                }
+                                id++;
+
+                                readline.prompt();
+                            });
+                        }
+                        break;
+                }
+            })
+            .on('close', function() {
+                mcrcon.close();
+                process.exit(0);
+            });
+    }
+
 });
