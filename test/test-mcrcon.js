@@ -1,7 +1,7 @@
 var should = require('should');
 
 var password = process.env.PASSWORD;
-var mcrcon = require('../index')({
+var mcrcon = require('../lib/mcrcon')({
     'port': process.env.PORT || 25575,
     'host': process.env.HOST || 'minecraft-server.zifzaf.net'
 });

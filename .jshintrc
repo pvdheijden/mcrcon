@@ -19,6 +19,8 @@
         "describe": false,
         "it": false,
         "before": false,
-        "after": false
+        "after": false,
+        "beforeEach": false,
+        "afterEach": false
     }
 }

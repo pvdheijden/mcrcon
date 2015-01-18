@@ -36,7 +36,8 @@
     "jshint": "*",
     "jshint-stylish": "*",
     "mocha": "*",
-    "should": "*"
+    "should": "*",
+    "sinon": "*"
   },
   "dependencies": {
     "debug": "^2.1.0",
