@@ -8,23 +8,16 @@ var cli = function(argv) {
     argv = require('minimist')(argv.slice(2));
     debug('presented command-line parameters: %j', argv);
 
-    var host, port;
-    if (argv._[0]) {
-        host = argv._[0].split(':')[0];
-        port = argv._[0].split(':')[1];
-    }
-    if (!host) { host = process.env.HOST || '127.0.0.1'; }
-    if (!port) { port = process.env.PORT || 25575; }
-
-    var password = argv.p || argv.password;
-    var message = (argv.c || argv.command).replace(/\+/, ' ');
+    var host = argv.h || argv.host || process.env.HOST || '127.0.0.1';
+    var port = argv.p || argv.port || process.env.PORT || 25575;
+    var password = argv.P || argv.password;
+    var message = argv._.join(' ');
 
     debug('connecting to minecraft server at %s:%d with password %s', host, port, password);
     if (!port || !host || !password) {
-        console.log('usage: mcrcon -p <password>  [-c <command>] [host:port]');
+        console.log('usage: mcrcon -P <password> [-h <host>] [-p <port>] [<command>]');
         process.exit(0);
     }
-
 
     var mcrcon = require('./lib/mcrcon')({'port': port, 'host': host});
     mcrcon.connect(password, function (err) {
