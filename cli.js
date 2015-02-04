@@ -98,6 +98,9 @@ var cli = function(argv) {
                             if (message[0] === '.') {
                                 console.log('unknown command');
                                 readline.prompt();
+                            } else if (message === 'stop') {
+                                console.log('\'stop\' command is disabled');
+                                readline.prompt();
                             } else {
                                 mcrcon.command({'id': id, 'message': message.trim()}, function (err, response) {
                                     if (err) {
