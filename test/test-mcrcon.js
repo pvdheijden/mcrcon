@@ -1,4 +1,4 @@
-var should = require('should');
+var expect = require('chai').expect;
 
 var password = process.env.PASSWORD;
 var mcrcon = require('../lib/mcrcon')({
@@ -8,28 +8,16 @@ var mcrcon = require('../lib/mcrcon')({
 
 describe('mcrcon functions', function() {
 
-    it('connect should exist', function () {
-        should.exist(mcrcon.connect);
-    });
-
     it('connect should be a function', function() {
-        mcrcon.connect.should.be.an.instanceof(Function);
-    });
-
-    it('close should exist', function () {
-        should.exist(mcrcon.close);
+        expect(mcrcon.connect).to.be.a('function');
     });
 
     it('close should be a function', function() {
-        mcrcon.close.should.be.an.instanceof(Function);
-    });
-
-    it('command should exist', function () {
-        should.exist(mcrcon.command);
+        expect(mcrcon.close).to.be.a('function');
     });
 
     it('command should be a function', function() {
-        mcrcon.command.should.be.an.instanceof(Function);
+        expect(mcrcon.command).to.be.a('function');
     });
 
 });
@@ -39,7 +27,7 @@ describe('connection', function() {
     it('should fail with incorrect password', function(done) {
         mcrcon.connect('WRONG_PASSWD', function(err) {
             /*jshint -W030 */
-            (err === undefined).should.be.false;
+            expect(err === undefined).to.be.false;
             /*jshint -W030 */
 
             done();
@@ -49,7 +37,7 @@ describe('connection', function() {
     it('should succeed with correct password', function(done) {
         mcrcon.connect(password, function(err) {
             /*jshint -W030 */
-            (err === undefined).should.be.true;
+            expect(err === undefined).to.be.true;
             /*jshint -W030 */
 
             done();
@@ -69,8 +57,8 @@ describe('command while not connected', function() {
     it('existing command should fail', function(done) {
         mcrcon.command({ 'id': 1, 'message': 'list' }, function(err, response) {
             /*jshint -W030 */
-            (err !== null).should.be.true;
-            (response === undefined).should.be.true;
+            expect(err !== null).to.be.true;
+            expect(response === undefined).to.be.true;
             /*jshint -W030 */
 
             done();
@@ -80,8 +68,8 @@ describe('command while not connected', function() {
     it('invalid command should fail', function(done) {
         mcrcon.command({ 'id': 1, 'message': 'invalid' }, function(err, response) {
             /*jshint -W030 */
-            (err !== null).should.be.true;
-            (response === undefined).should.be.true;
+            expect(err !== null).to.be.true;
+            expect(response === undefined).to.be.true;
             /*jshint -W030 */
 
             done();
@@ -101,8 +89,8 @@ describe('invalid command', function() {
     it('should fail for invalid command', function(done) {
         mcrcon.command({ 'id': 1, 'message': 'invalid' }, function(err, response) {
             /*jshint -W030 */
-            (err !== null).should.be.true;
-            (response === undefined).should.be.true;
+            expect(err !== null).to.be.true;
+            expect(response === undefined).to.be.true;
             /*jshint -W030 */
 
             done();
@@ -128,13 +116,11 @@ describe('all commands', function() {
     it('support list command', function(done) {
         mcrcon.command({ 'id': 1, 'message': 'list' }, function(err, response) {
             /*jshint -W030 */
-            (err === null).should.be.true;
+            expect(err === null).to.be.true;
             /*jshint -W030 */
-            response.should.have.properties({
-                'id': 1,
-                'type': 0
-            });
-            response.should.have.property('message');
+            expect(response).to.have.property('id', 1);
+            expect(response).to.have.property('type', 0);
+            expect(response).to.have.property('message');
 
             done();
         });
@@ -143,13 +129,11 @@ describe('all commands', function() {
     it('support whitelist list command', function(done) {
         mcrcon.command({ 'id': 2, 'message': 'whitelist list' }, function(err, response) {
             /*jshint -W030 */
-            (err === null).should.be.true;
+            expect(err === null).to.be.true;
             /*jshint -W030 */
-            response.should.have.properties({
-                'id': 2,
-                'type': 0
-            });
-            response.should.have.property('message');
+            expect(response).to.have.property('id', 2);
+            expect(response).to.have.property('type', 0);
+            expect(response).to.have.property('message');
 
             done();
         });
