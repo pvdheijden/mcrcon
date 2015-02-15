@@ -28,7 +28,7 @@ describe('connection', function() {
         mcrcon.connect('WRONG_PASSWD', function(err) {
             /*jshint -W030 */
             expect(err === undefined).to.be.false;
-            /*jshint -W030 */
+            /*jshint +W030 */
 
             done();
         });
@@ -38,7 +38,7 @@ describe('connection', function() {
         mcrcon.connect(password, function(err) {
             /*jshint -W030 */
             expect(err === undefined).to.be.true;
-            /*jshint -W030 */
+            /*jshint +W030 */
 
             done();
         });
@@ -59,7 +59,7 @@ describe('command while not connected', function() {
             /*jshint -W030 */
             expect(err !== null).to.be.true;
             expect(response === undefined).to.be.true;
-            /*jshint -W030 */
+            /*jshint +W030 */
 
             done();
         });
@@ -70,7 +70,7 @@ describe('command while not connected', function() {
             /*jshint -W030 */
             expect(err !== null).to.be.true;
             expect(response === undefined).to.be.true;
-            /*jshint -W030 */
+            /*jshint +W030 */
 
             done();
         });
@@ -91,7 +91,7 @@ describe('invalid command', function() {
             /*jshint -W030 */
             expect(err !== null).to.be.true;
             expect(response === undefined).to.be.true;
-            /*jshint -W030 */
+            /*jshint +W030 */
 
             done();
         });
@@ -117,7 +117,7 @@ describe('all commands', function() {
         mcrcon.command({ 'id': 1, 'message': 'list' }, function(err, response) {
             /*jshint -W030 */
             expect(err === null).to.be.true;
-            /*jshint -W030 */
+            /*jshint +W030 */
             expect(response).to.have.property('id', 1);
             expect(response).to.have.property('type', 0);
             expect(response).to.have.property('message');
@@ -130,7 +130,7 @@ describe('all commands', function() {
         mcrcon.command({ 'id': 2, 'message': 'whitelist list' }, function(err, response) {
             /*jshint -W030 */
             expect(err === null).to.be.true;
-            /*jshint -W030 */
+            /*jshint +W030 */
             expect(response).to.have.property('id', 2);
             expect(response).to.have.property('type', 0);
             expect(response).to.have.property('message');
