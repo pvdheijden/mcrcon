@@ -46,6 +46,15 @@ module.exports = function(grunt) {
                 'force': true
             },
             'node-mcrcon': 'coverage/lcov.info'
+        },
+
+        'execute': {
+            'mcrcon': {
+                'options': {
+                    'args': ['-P12Blieps25', 'whitelist list']
+                },
+                'src': ['cli.js']
+            }
         }
 
     });
@@ -59,4 +68,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-mocha-istanbul');
     grunt.loadNpmTasks('grunt-coveralls');
     grunt.registerTask('test', ['env:dev', 'jshint', 'mocha_istanbul', 'coveralls']);
+
+    grunt.loadNpmTasks('grunt-execute');
+    grunt.registerTask('mcrcon', ['env:dev', 'execute:mcrcon']);
 };

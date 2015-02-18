@@ -3,23 +3,25 @@
 'use strict';
 var debug = require('debug')('mcrcon:cli');
 
+var MCrcon = require('./lib/mcrcon');
+
 var cli = function(argv) {
 
     argv = require('minimist')(argv.slice(2));
     debug('presented command-line parameters: %j', argv);
 
     var host = argv.h || argv.host || process.env.HOST || '127.0.0.1';
-    var port = argv.p || argv.port || process.env.PORT || 25575;
+    var port = parseInt(argv.p || argv.port || process.env.PORT || '25575');
     var password = argv.P || argv.password;
     var message = argv._.join(' ');
 
-    debug('connecting to minecraft server at %s:%d with password %s', host, port, password);
     if (!port || !host || !password) {
         console.log('usage: mcrcon -P <password> [-h <host>] [-p <port>] [<command>]');
         process.exit(0);
     }
 
-    var mcrcon = require('./lib/mcrcon')({'port': port, 'host': host});
+    debug('connecting to minecraft server at %s:%d with password %s', host, port, password);
+    var mcrcon = new MCrcon(host, port);
     mcrcon.connect(password, function (err) {
         if (err) {
             console.error('error connecting to %s:%d [%s]', host, port, err.message);
