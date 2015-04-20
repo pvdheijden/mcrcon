@@ -4,6 +4,8 @@
 
 Node.JS Minecraft remote connection client component.
 
+rcon specification: https://developer.valvesoftware.com/wiki/Source_RCON_Protocol
+
 ## Installation ##
 ```
 $ npm install node-mcrcon

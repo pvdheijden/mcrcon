@@ -31,13 +31,8 @@ describe('mcrcon functions', function() {
 
 describe('connection', function() {
 
-    var mcrcon = null;
-    before(function(done) {
-        mcrcon = new MCrcon(host, port);
-        done();
-    });
-
     it('should fail with incorrect password', function(done) {
+        var mcrcon = new MCrcon(host, port);
         mcrcon.connect('WRONG_PASSWD', function(err) {
             expect(err === undefined).to.be.false;
 
@@ -46,9 +41,11 @@ describe('connection', function() {
     });
 
     it('should succeed with correct password', function(done) {
+        var mcrcon = new MCrcon(host, port);
         mcrcon.connect(password, function(err) {
             expect(err === undefined).to.be.true;
 
+            mcrcon.close();
             done();
         });
     });
@@ -96,6 +93,12 @@ describe('invalid command', function() {
         });
     });
 
+    after(function(done) {
+        mcrcon.close();
+
+        done();
+    });
+
     it('should fail for invalid command', function(done) {
         mcrcon.command({ 'id': 1, 'message': 'invalid' }, function(err, response) {
             expect(err !== null).to.be.true;
@@ -103,12 +106,6 @@ describe('invalid command', function() {
 
             done();
         });
-    });
-
-    after(function(done) {
-        mcrcon.close();
-
-        done();
     });
 
 });
@@ -155,7 +152,6 @@ describe('all commands', function() {
 
         done();
     });
-
 });
 
 /*jshint +W030 */
