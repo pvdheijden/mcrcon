@@ -10,19 +10,24 @@ var cli = function(argv) {
     argv = require('minimist')(argv.slice(2));
     debug('presented command-line parameters: %j', argv);
 
+    var password = argv._[0];
     var host = argv.h || argv.host || process.env.HOST || '127.0.0.1';
     var port = parseInt(argv.p || argv.port || process.env.PORT || '25575');
-    var password = argv.P || argv.password;
-    var message = argv._.join(' ');
+    var message = argv.c || argv.command;
+
+    debug('    password: %s', password);
+    debug('    host: %s', host);
+    debug('    port: %s', port);
+    debug('    message: %s', message);
 
     if (!port || !host || !password) {
-        console.log('usage: mcrcon -P <password> [-h <host>] [-p <port>] [<command>]');
+        console.log('usage: mcrcon <password> [-h <host>] [-p <port>] [-c <command>]');
         process.exit(0);
     }
 
     debug('connecting to minecraft server at %s:%d with password %s', host, port, password);
-    var mcrcon = new MCrcon(host, port);
-    mcrcon.connect(password, function (err) {
+    var mcrcon = new MCrcon(password);
+    mcrcon.connect({ port: port, host: host }, function (err) {
         if (err) {
             console.error('error connecting to %s:%d [%s]', host, port, err.message);
             process.exit(1);

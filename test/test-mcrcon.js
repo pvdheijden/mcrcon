@@ -32,8 +32,8 @@ describe('mcrcon functions', function() {
 describe('connection', function() {
 
     it('should fail with incorrect password', function(done) {
-        var mcrcon = new MCrcon(host, port);
-        mcrcon.connect('WRONG_PASSWD', function(err) {
+        var mcrcon = new MCrcon('WRONG_PASSWD');
+        mcrcon.connect({ port: port, host: host }, function(err) {
             expect(err === undefined).to.be.false;
 
             done();
@@ -41,8 +41,8 @@ describe('connection', function() {
     });
 
     it('should succeed with correct password', function(done) {
-        var mcrcon = new MCrcon(host, port);
-        mcrcon.connect(password, function(err) {
+        var mcrcon = new MCrcon(password);
+        mcrcon.connect({ port: port, host: host }, function(err) {
             expect(err === undefined).to.be.true;
 
             mcrcon.close();
@@ -83,8 +83,8 @@ describe('invalid command', function() {
 
     var mcrcon = null;
     before(function(done) {
-        mcrcon = new MCrcon(host, port);
-        mcrcon.connect(password, function(err) {
+        mcrcon = new MCrcon(password);
+        mcrcon.connect({ port: port, host: host }, function(err) {
             if (err) {
                 return done(err);
             }
@@ -115,8 +115,8 @@ describe('all commands', function() {
 
     var mcrcon = null;
     before(function(done) {
-        mcrcon = new MCrcon(host, port);
-        mcrcon.connect(password, function(err) {
+        mcrcon = new MCrcon(password);
+        mcrcon.connect({ port: port, host: host }, function(err) {
             if (err) {
                 return done(err);
             }
