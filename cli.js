@@ -51,7 +51,7 @@ var cli = function(argv) {
                 var completions = [];
                 for (var command in commands) {
                     if (commands.hasOwnProperty(command)) {
-                        completions.push(command);
+                        completions.push(command.trim());
                     }
                 }
 
